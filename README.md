@@ -90,6 +90,15 @@ git checkout -b <branch-name>
 ```
 * to switch between branches 
 ```
+<<<<<<< HEAD
+<<<<<<< HEAD
+git checkout <branch-name>
+```
+testing
+````
+test
+````
+=======
 git checkout <branch-name> 
 ```
 
@@ -99,3 +108,8 @@ git add .
 git commit -m "[message explaining changes]"
 git push
 ```
+>>>>>>> master
+=======
+git checkout <branch-name> 
+```
+>>>>>>> parent of 33f1832... Testing commit

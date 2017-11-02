@@ -97,5 +97,5 @@ git checkout <branch-name>
 ```
 git add .
 git commit -m "[message explaining changes]"
-git push origin HEAD
+git push
 ```

@@ -90,9 +90,21 @@ git checkout -b <branch-name>
 ```
 * to switch between branches 
 ```
+<<<<<<< HEAD
 git checkout <branch-name>
 ```
 testing
 ````
 test
 ````
+=======
+git checkout <branch-name> 
+```
+
+## Pushing Changes to your Branch 
+```
+git add .
+git commit -m "[message explaining changes]"
+git push
+```
+>>>>>>> master

@@ -92,3 +92,10 @@ git checkout -b <branch-name>
 ```
 git checkout <branch-name> 
 ```
+
+## Pushing Changes to your Branch 
+```
+git add .
+git commit -m "[message explaining changes]"
+git push origin HEAD
+```

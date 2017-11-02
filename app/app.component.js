@@ -9,7 +9,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var AppComponent = (function () {
     function AppComponent() {
+        this.output = '';
     }
+    AppComponent.prototype.changeListener = function ($event) {
+        this.readThis($event.target);
+    };
+    AppComponent.prototype.readThis = function (inputValue) {
+        var file = inputValue.files[0];
+        var myReader = new FileReader();
+        var output = '';
+        this.output = output;
+        console.log("output " + output);
+        console.log(this.output);
+        myReader.onloadend = function (e) {
+            // you can perform an action with readed data here
+            console.log(myReader.result);
+            output = myReader.result;
+        };
+        myReader.readAsText(file);
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([

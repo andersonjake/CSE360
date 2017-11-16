@@ -18,6 +18,10 @@ public class Main
 
         int avgChar = 0;
 
+        int avgLineLength = 0;
+
+        int spaceCount = 0;
+
         try
         {
 
@@ -34,6 +38,8 @@ public class Main
                     emptyLine++;
 
                 String[] words = currentLine.split(" ");
+                if (currentLine.equals(""))
+                    spaceCount++;
 
                 wordCount = wordCount + words.length;
 
@@ -43,11 +49,16 @@ public class Main
                 }
                 currentLine = reader.readLine();
             }
+
+
+
             wordCount = wordCount - emptyLine;
 
             lineCount = lineCount - emptyLine;
 
             avgChar = charCount / wordCount;
+
+            avgLineLength = charCount / lineCount;
 
 
             System.out.println("Number Of Chars In File : "+charCount);
@@ -56,9 +67,15 @@ public class Main
 
             System.out.println("Number Of Lines In File : "+lineCount);
 
-            System.out.println("Average Number of Characters per word In File : "+avgChar);
-
             System.out.println("Number Of Empty Lines In File : "+emptyLine);
+
+            System.out.println("Average Characters Per Word In File : "+avgChar);
+
+            System.out.println("Average Characters Per Line In File : "+avgLineLength);
+
+            System.out.println("Number Of Spaces In File : "+spaceCount);
+
+
 
         }
         catch (IOException e)

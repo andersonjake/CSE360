@@ -33,7 +33,7 @@ public final class main extends Application {
  
     @Override
     public void start(final Stage stage) {
-        stage.setTitle("Text File Analyzer");
+        stage.setTitle("Text File Analyzer"); //window title
  
         final FileChooser fileChooser = new FileChooser();
  
@@ -43,6 +43,7 @@ public final class main extends Application {
         Text headerText = new Text ("CSE 360 Text File Analyzer");
         headerText.setStyle("-fx-font: 24 arial");
         
+        /*Text for statistic labels */
         Text fileStat = new Text ("File Statistics");
         Text numLines = new Text ("Number of Lines: ");
         Text numBlankLines = new Text ("Number of Blank Lines: ");
@@ -52,6 +53,7 @@ public final class main extends Application {
         Text avgWordLength = new Text("Average Word Length: ");
         Text commonWord = new Text("Most Common Word: ");
         
+        /*Place holders for statistics NOT IN USE CURRENTLY */
         Text fileStatVal = new Text (" ");
         Text numLinesVal = new Text ("0");
         Text numBlankLinesVal = new Text ("0");
@@ -61,6 +63,7 @@ public final class main extends Application {
         Text avgWordLengthVal = new Text("0");
         Text commonWordVal = new Text("0");
         
+        /*Average file labels */
         Text avgfileStat = new Text ("Average File Statistics");
         Text avgnumLines = new Text ("Number of Lines: ");
         Text avgnumBlankLines = new Text ("Number of Blank Lines: ");
@@ -70,6 +73,7 @@ public final class main extends Application {
         Text avgavgWordLength = new Text("Average Word Length: ");
         Text avgcommonWord = new Text("Most Common Word: ");
         
+        /*Place holders for average statistics NOT IN USE CURRENTLY */
         Text avgfileStatVal = new Text (" ");
         Text avgnumLinesVal = new Text ("0");
         Text avgnumBlankLinesVal = new Text ("0");
@@ -79,6 +83,7 @@ public final class main extends Application {
         Text avgavgWordLengthVal = new Text("0");
         Text avgcommonWordVal = new Text("0");
  
+        /*Button for selecting file */
         openButton.setOnAction(
             new EventHandler<ActionEvent>() {
                 public void handle(final ActionEvent e) {
@@ -89,22 +94,26 @@ public final class main extends Application {
                 }
             });
         
+        //MAIN BOX
         VBox mainVBox = new VBox(); //MAIN BOX
         mainVBox.setStyle("-fx-border-style: solid inside;" + 
                 		  	"-fx-border-width: 0;" +
         				  	"-fx-border-color: black;");
         
+        //Top 1/3 Box
         VBox topVBox = new VBox(15); //TITLE BOX
         topVBox.setStyle("-fx-border-style: solid inside;" + 
       		  				"-fx-border-width: 0;" +
 				  			"-fx-border-color: black;" +
 				  			"-fx-padding: 10 0 10 10;");
         
+        //Middle 1/3 Box
         HBox midHBox = new HBox(); //INFO/STAT BOX
         midHBox.setStyle("-fx-border-style: solid inside;" + 
       		  				"-fx-border-width: 0;" +
 				  			"-fx-border-color: black;");
         
+        //Box for holding stat labels and stat variables
         HBox fileHBox = new HBox();
         fileHBox.setPrefWidth(250);
         fileHBox.setStyle("-fx-background-color: #FFFFFF;" +
@@ -112,8 +121,10 @@ public final class main extends Application {
         					"-fx-border-width: 1;" +
 	  						"-fx-border-color: gray;");
         
+        //Box for holding regular variables
         VBox fileValVBox = new VBox(15);
        
+        //Box for holding average stat labels and average stat variables
         HBox avgFileHBox = new HBox();
         avgFileHBox.setPrefWidth(250);
         avgFileHBox.setStyle("-fx-background-color: #FFFFFF;" +
@@ -121,32 +132,38 @@ public final class main extends Application {
         						"-fx-border-width: 1;" +
 								"-fx-border-color: gray;");
         
+        //Box for holding average variables
         VBox avgFileValVBox = new VBox(15);
         
+        //Bottom 1/3 Box
         HBox botVBox = new HBox(15); //BOX FOR THE BUTTONS
         botVBox.setStyle("-fx-border-style: solid inside;" + 
       		  				"-fx-border-width: 0;" +
 				  			"-fx-border-color: black;");
         
-        VBox statVbox = new VBox(15); //BOX FOR STATS -> MIDVBOX
-        statVbox.setStyle("-fx-border-style: solid inside;" + 
+        //Box for file statistic labels -> filehbox
+        VBox statVBox = new VBox(15);
+        statVBox.setStyle("-fx-border-style: solid inside;" + 
 	  						"-fx-border-width: 0;" +
 	  						"-fx-border-color: black;" +
 	  						"-fx-padding: 5 5 0 10;");
-        statVbox.setPrefWidth(200);
+        statVBox.setPrefWidth(200);
         
-        VBox avgStatVbox = new VBox(15);
-        avgStatVbox.setStyle("-fx-border-style: solid inside;" + 
+        //Box for average file stat labels
+        VBox avgStatVBox = new VBox(15);
+        avgStatVBox.setStyle("-fx-border-style: solid inside;" + 
 								"-fx-border-width: 0;" +
 								"-fx-border-color: black;" +
 								"-fx-padding: 5 5 0 10;");
-        avgStatVbox.setPrefWidth(200);
+        avgStatVBox.setPrefWidth(200);
         
+        //Last 1/3 to the right of midbox, for maybe placing the text file's contents
         VBox textFileVBox = new VBox(15);
         textFileVBox.setStyle("-fx-border-style: solid inside;" + 
 								"-fx-border-width: 0;" +
 								"-fx-border-color: black;");
         
+        //uses to push over the box for the buttons to the right
         HBox space1 = new HBox(15);
         space1.setPrefWidth(300);
         
@@ -158,33 +175,43 @@ public final class main extends Application {
 	  						"-fx-border-width: 0;" +
 	  						"-fx-border-color: black;");
         
+        //Header text going into top
         topVBox.getChildren().addAll(headerText);
         
-        
-        statVbox.getChildren().addAll(fileStat, numLines, numBlankLines, 
+        //Labels being put into statbox
+        statVBox.getChildren().addAll(fileStat, numLines, numBlankLines, 
         		numSpaces, numWords, avgCharLine, avgWordLength, commonWord);
         
+        //VAR PLACEHOLDERS NOT IN USE
         /*fileValVBox.getChildren().addAll(fileStatVal, numLinesVal, numBlankLinesVal, 
         		numSpacesVal, numWordsVal, avgCharLineVal, avgWordLengthVal, commonWordVal);*/
         
-        avgStatVbox.getChildren().addAll(avgfileStat, avgnumLines, avgnumBlankLines, 
+        //Average labels being put into avgstatbox
+        avgStatVBox.getChildren().addAll(avgfileStat, avgnumLines, avgnumBlankLines, 
         		avgnumSpaces, avgnumWords, avgavgCharLine, avgavgWordLength, avgcommonWord);
         
+        //VAR PLACEHOLDERS NOT IN USE
         /*avgFileValVBox.getChildren().addAll(avgfileStatVal, avgnumLinesVal, 
         		avgnumBlankLinesVal, avgnumSpacesVal, avgnumWordsVal, avgavgCharLineVal,
         		avgavgWordLengthVal, avgcommonWordVal); */
         
         
+        //Middle box, left 1/3, file stats being put in
+        fileHBox.getChildren().addAll(statVBox, fileValVBox);
         
-        fileHBox.getChildren().addAll(statVbox, fileValVBox);
+        //Middle box, middle 1/3, average file stats being put in
+        avgFileHBox.getChildren().addAll(avgStatVBox, avgFileValVBox);
         
-        avgFileHBox.getChildren().addAll(avgStatVbox, avgFileValVBox);
-        
+        //Putting contents into middle box
         midHBox.getChildren().addAll(fileHBox, avgFileHBox, textFileVBox);
         
+        //putting items into button box
         butHBox.getChildren().addAll(openButton, helpButton);
+        
+        //putting items into bottom box
         botVBox.getChildren().addAll(space1, space2, butHBox);
         
+        //Putting top, mid, and bottom box into main
         mainVBox.getChildren().addAll(topVBox, midHBox, botVBox);
         
         Scene scene = new Scene(mainVBox, 800, 325);

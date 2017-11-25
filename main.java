@@ -13,8 +13,10 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Border;
@@ -82,6 +84,65 @@ public final class main extends Application {
         Text avgavgCharLineVal = new Text("0");
         Text avgavgWordLengthVal = new Text("0");
         Text avgcommonWordVal = new Text("0");
+        
+        helpButton.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent e) {
+                Stage stage = new Stage();
+                
+                stage.setTitle("Help Window"); //Window title
+                
+                //Title formatting
+                Text headerText = new Text ("Program Information");
+                headerText.setStyle("-fx-font: 24 arial");
+                
+                //Text to be put inside help window.  Broken into 4 different sections
+                Text chooseHelp = new Text("\nTo Select a New File - \n\t"
+                		+ "Click on 'Choose a File' and select a text file");
+                Text exp1 = new Text("File Statistics Box - "
+                		+ "\n\tStatistics on the most recently chosen file");
+                Text exp2 = new Text("Average File Statistics Box - \n\t"
+                		+ "Average statistics between all chosen files\n"
+                		+ "\n*Below is an explanation for all statistics in each box*");
+                Text exp3 = new Text("\nNumber of lines - \n\t"
+                		+ "Amount of lines in the text file\n"
+                		+ "Number of Blank Lines - \n\t"
+                		+ "Amount of empty lines in the text file\n"
+                		+ "Number of Spaces - \n\t"
+                		+ "Amount of spaces in the text file\n"
+                		+ "Number of Words - \n\t"
+                		+ "Amount of words in the text file\n"
+                		+ "Average Characters Per Line - \n\t"
+                		+ "Averaage amount of characters per each line\n"
+                		+ "Average Word Length - \n\t"
+                		+ "Average amount of characters per each word\n"
+                		+ "Most Common Word - \n\t"
+                		+ "Word that is used the most often in the text file\n");
+                
+                VBox helpVBox = new VBox(); //main box
+                helpVBox.setStyle(
+    					"-fx-border-style: solid inside;" + 
+    					"-fx-border-width: 1;" +
+  						"-fx-border-color: gray;" +
+  						"-fx-padding: 10;");
+                
+                VBox textVBox = new VBox();//Box for the text - set to white background
+                textVBox.setStyle("-fx-background-color: #FFFFFF;" +
+    					"-fx-border-style: solid inside;" + 
+    					"-fx-border-width: 1;" +
+  						"-fx-border-color: gray;" +
+  						"-fx-padding: 5");
+                
+                //placing children into respective boxes
+                textVBox.getChildren().addAll(headerText, chooseHelp, exp1, exp2, exp3);
+                helpVBox.getChildren().addAll(textVBox);
+                
+                Scene scene = new Scene(helpVBox, 400, 445);
+                
+                stage.setScene(scene);
+                
+                stage.show();
+            }
+        });
  
         /*Button for selecting file */
         openButton.setOnAction(

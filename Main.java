@@ -49,11 +49,12 @@ public class Main
 
                 for (String word : words)
                 {
-                    spaceCount++;
-                    if (word == "")
+                    if (word == " ")
                     {
+                        wordCount--;
                         spaceCount++;
                     }
+                    spaceCount++;
 
                     if (wordCountMap.containsKey(word))
                     {

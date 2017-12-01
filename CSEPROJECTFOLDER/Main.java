@@ -54,7 +54,6 @@ class Layout {
             historic_repeated_word_occurences = 0;
 
 
-
     Border empty_border = BorderFactory.createEmptyBorder();
     Border black_line_border = BorderFactory.createLineBorder(Color.black);
     Border left = BorderFactory.createTitledBorder(empty_border, "Current File Statistics:");
@@ -62,7 +61,7 @@ class Layout {
     Border middle = BorderFactory.createTitledBorder(empty_border, "Average File Statistics:");
 
     Font font = new Font("Calibri", Font.PLAIN, 14);
-    
+
 
     // Sets up the layout for the applet
     Layout() {
@@ -108,7 +107,6 @@ class Layout {
         right_text_area.setFont(font);
 
 
-
         content_panel.setBounds(0, 110, 1000, 400);
         content_panel.setBorder(empty_border);
         content_panel.setLayout(null);
@@ -122,6 +120,7 @@ class Layout {
         JButton choose_file_bt = new JButton("Choose File");
         choose_file_bt.setBounds(780, 40, 40, 30);
         choose_file_bt.addActionListener(new ActionListener() {
+            // Action performed: Opening the file chooser allowing user to choose their file
             public void actionPerformed(ActionEvent e) {
                 //Stuff
                 if (e.getSource() == choose_file_bt) {
@@ -138,6 +137,7 @@ class Layout {
         JButton help_button = new JButton("Help");
         help_button.setBounds(840, 40, 40, 30);
         help_button.addActionListener(new ActionListener() {
+            // Opens the 'Help' information page
             @Override
             public void actionPerformed(ActionEvent e) {
                 String message = "\n<html><h1>Program Information:</h1>\n"
@@ -207,6 +207,7 @@ class Layout {
         right_text_area.setText(right_content);
     }
 
+    // Parses Data from uploaded file into different categories
     void ParseData(File file) {
         HashMap<String, Integer> wordCountMap = new HashMap<String, Integer>();
 
@@ -226,6 +227,7 @@ class Layout {
 
         int spaceCount = 0;
 
+        // Opens file and parses through line by line
         try {
             file_content = "";
 
@@ -243,8 +245,6 @@ class Layout {
                     emptyLine++;
 
                 String[] words = currentLine.toLowerCase().split(" ");
-                //if (currentLine.equals(""))
-                //    spaceCount++;
 
                 wordCount = wordCount + words.length;
 
@@ -299,6 +299,7 @@ class Layout {
             current_most_common_word = mostRepeatedWord;
             current_repeated_word_occurences = count;
 
+            // Save data and show it on the applet
             SaveDataToTextFile();
             DetermineContent();
 
@@ -313,14 +314,17 @@ class Layout {
         }
     }
 
+    // Saves Data to Text file. Adds new data every time a file is uploaded
     void SaveDataToTextFile() {
         try {
             Writer output;
-            output = new BufferedWriter(new FileWriter("./src/historicData.txt", true));
-            String data_to_save = current_number_of_lines + ","     // 0
-                    + current_number_of_blank_lines + ","           // 1
-                    + current_number_of_spaces + ","                // 2
-                    + current_number_of_words + ","                 // 3
+            String userHomeFolder = System.getProperty("user.home");
+//            File textFile = new File(userHomeFolder, "mytext.txt");
+            output = new BufferedWriter(new FileWriter(userHomeFolder + "/historicData.txt", true));
+            String data_to_save = current_number_of_lines + ","     // 0    <-  Numbers correspond position saved in
+                    + current_number_of_blank_lines + ","           // 1        text file. Used in ParseHistoricData()
+                    + current_number_of_spaces + ","                // 2        to determine which data is being
+                    + current_number_of_words + ","                 // 3        extracted
                     + current_average_characters_per_line + ","     // 4
                     + current_average_word_length + ","             // 5
                     + current_most_common_word + ","                // 6
@@ -332,6 +336,7 @@ class Layout {
         }
     }
 
+    // Reads from historic data file that hold all data from past files
     void ReadFromHistory() {
 
         historic_number_of_lines = 0;
@@ -343,48 +348,55 @@ class Layout {
         historic_repeated_word_occurences = 0;
 
         BufferedReader reader = null;
-        File file = new File("./src/historicData.txt");
+        String userHomeFolder = System.getProperty("user.home");
+        File file = new File(userHomeFolder + "/historicData.txt");
         String historic_data;
 
-        try {
-            historic_data = "";
-
-            reader = new BufferedReader(new FileReader(file));
-
-            String currentLine = reader.readLine();
-
-            if (currentLine == null) {
-                return;
-            }
-
-            while (currentLine != null) {
-
-                historic_data += currentLine + "\n";
-                currentLine = reader.readLine();
-
-            }
-
-            ParseHistoricData(historic_data);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
+        if (file.exists()) { // Checks to see if file exists
             try {
-                reader.close();
+                historic_data = "";
+
+                reader = new BufferedReader(new FileReader(file));
+
+                String currentLine = reader.readLine();
+
+                if (currentLine == null) { // Checks to see if there is anything in text file
+                    return;
+                }
+
+                while (currentLine != null) {
+
+                    historic_data += currentLine + "\n";
+                    currentLine = reader.readLine();
+
+                }
+
+                ParseHistoricData(historic_data);
+
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
+    // Parse the historic data gathered from text file
     void ParseHistoricData(String data) {
+        // Split data into a string array
         String[] split_by_line = data.split("\n");
+
         int number_of_lines = split_by_line.length, total_lines = 0,
                 total_blank_lines = 0, total_spaces = 0, total_number_of_words = 0,
                 total_average_characters_per_line = 0, total_average_word_length = 0;
 
         Map<String, Integer> map = new HashMap();
 
+        // assign data from string array to new variables
         for (int i = 0; i < number_of_lines; i++) {
             String[] split_by_value = split_by_line[i].split(",");
             int update = 0;
@@ -401,12 +413,13 @@ class Layout {
             total_number_of_words += Integer.parseInt(split_by_value[3]);
             total_average_characters_per_line += Integer.parseInt(split_by_value[4]);
             total_average_word_length += Integer.parseInt(split_by_value[5]);
-            map.put(split_by_value[6], update);
+            map.put(split_by_value[6], update); // Uses map to keep track of most common word
         }
 
         String most_common_word = "";
         int maxSoFar = 0;
 
+        // compares most common words to see which is most common overall
         for (Map.Entry<String, Integer> entry : map.entrySet()) {
             String key = entry.getKey();
             Integer num = entry.getValue();

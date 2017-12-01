@@ -1,11 +1,16 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map.Entry;
+import java.util.Set;
 
 public class Main
 {
     public static void main(String[] args)
     {
+        HashMap<String, Integer> wordCountMap = new HashMap<String, Integer>();
+
         BufferedReader reader = null;
 
         int charCount = 0;
@@ -24,8 +29,7 @@ public class Main
 
         try
         {
-
-            reader = new BufferedReader(new FileReader("C:\\test.txt"));
+            reader = new BufferedReader(new FileReader("/Users/DYLANSLATER/Desktop/test.txt"));
 
             String currentLine = reader.readLine();
 
@@ -37,19 +41,49 @@ public class Main
                 if (currentLine.isEmpty())
                     emptyLine++;
 
-                String[] words = currentLine.split(" ");
-                if (currentLine.equals(""))
-                    spaceCount++;
+                String[] words = currentLine.toLowerCase().split(" ");
+                //if (currentLine.equals(""))
+                //    spaceCount++;
 
                 wordCount = wordCount + words.length;
 
                 for (String word : words)
                 {
+                    spaceCount++;
+                    if (word == "")
+                    {
+                        spaceCount++;
+                    }
+
+                    if (wordCountMap.containsKey(word))
+                    {
+                        wordCountMap.put(word, wordCountMap.get(word)+1);
+                    }
+
+                    else
+                    {
+                        wordCountMap.put(word, +1);
+                    }
                     charCount = charCount + word.length();
                 }
                 currentLine = reader.readLine();
             }
 
+            String mostRepeatedWord = null;
+
+            int count = 0;
+
+            Set<Entry<String, Integer>> entrySet = wordCountMap.entrySet();
+
+            for (Entry<String, Integer> entry : entrySet)
+            {
+                if(entry.getValue() > count)
+                {
+                    mostRepeatedWord = entry.getKey();
+
+                    count = entry.getValue();
+                }
+            }
 
 
             wordCount = wordCount - emptyLine;
@@ -60,6 +94,7 @@ public class Main
 
             avgLineLength = charCount / lineCount;
 
+            spaceCount = spaceCount-1;
 
             System.out.println("Number Of Chars In File : "+charCount);
 
@@ -75,6 +110,9 @@ public class Main
 
             System.out.println("Number Of Spaces In File : "+spaceCount);
 
+            System.out.println("The most repeated word in input file is : "+mostRepeatedWord);
+
+            System.out.println("Number Of Occurrences : "+count);
 
 
         }
@@ -86,7 +124,7 @@ public class Main
         {
             try
             {
-                reader.close();
+                reader.close();           //Closing the reader
             }
             catch (IOException e)
             {

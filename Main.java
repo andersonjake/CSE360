@@ -62,7 +62,7 @@ class Layout {
     Border middle = BorderFactory.createTitledBorder(empty_border, "Average File Statistics:");
 
     Font font = new Font("Calibri", Font.PLAIN, 14);
-    
+
 
     // Sets up the layout for the applet
     Layout() {
@@ -288,7 +288,7 @@ class Layout {
 
             avgLineLength = charCount / lineCount;
 
-            spaceCount = spaceCount - 1;
+           // spaceCount = spaceCount - 1;
 
             current_number_of_lines = lineCount;
             current_number_of_blank_lines = emptyLine;
@@ -428,5 +428,3 @@ class Layout {
         historic_repeated_word_occurences = maxSoFar;
     }
 }
-
-
